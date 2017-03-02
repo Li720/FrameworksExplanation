@@ -33,7 +33,7 @@ Should note that the definitions given above are really just a rough guide.
 When linked, Static libraries get combined with our target binary. (This results in an increased binary size, since basically anything in the library would now be in our binary.) The opposite occurs when linking a Dynamic library; None of the dynamic library's code is actually combined into our target binary. Because the library code is not included in our target binary, it has to be loaded into memory at run time. 
 
 The following example demonstrates the difference mentioned above:
-- SFramework is a static framework 
+- SLib is a static library 
   - SFramework contains class AClass with method aMethod 
 - DFramework is a dynamic framework 
   - DFramework contains class BClass with method bMethod
@@ -49,4 +49,15 @@ Because of the way dynamic frameworks work, dynamic frameworks need to be copied
 
 ### Inspecting a framework
 
-There are several tools we can use to tell if a framework is static/dynamic and what architectures it contains. 
+There are several tools we can use to tell if a framework is static/dynamic and what architectures it contains. Here are some:
+
+```shell
+otool -l AFramework
+```
+```shell
+file AFramework
+```
+
+### Adding a Framework to a project (iOS)
+
+The process of using a framework is pretty straight forward though occassionally one may encounter some hiccups. The most common process for using a framework is to add it under the "Frameworks and Libraries" section of the target. 
