@@ -75,6 +75,6 @@ If the application we are currently working on depends on a precompiled Framewor
 This is reasonable for cases like Carthage where updates are handled through Carthage update, or for frameworks where updates are less frequent. (E.g if we had an analytics library we update once every couple months when they release a new build)
 
 However, if we are simultaneously working on our dependency and our application, we might not want the hassle of replacing the compiled framework over and over. There are several varying set-ups which we might find useful: (There are probably many more but these are the ones I know of) 
-> Target application and Framework are both targets of a common project
-> Framework project is a sub-project of application project (Potentially submodules)
-> Framework and Application are seperate projects and work is done in a xcworkspace
+- Target application and Framework are both targets of a common project
+- Framework project is a sub-project of application project (Potentially submodules)
+- Framework and Application are seperate projects and work is done in a xcworkspace
