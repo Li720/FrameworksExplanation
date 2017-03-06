@@ -24,7 +24,9 @@ Here we note the following:
 - BHeader and CHeader are header files within the headers directory of the framework
 - module.modulemap is the module map 
 
-A framework can be **"static"** or **"dynamic"**. It is important to note that a **"static framework"** is really just a package with symbolic links to the compiled intermediate lib object and the associated headers. Thus a dynamic framework is a package containing various resources and a dynamic library. 
+A framework can be **"static"** or **"dynamic"**. It is important to note that a **"static framework"** is really just a package with symbolic links to the compiled intermediate lib object and the associated headers. Thus a dynamic framework is a package containing various resources and a dynamic library.
+
+*There is no template to create a static framework in xCode (There is a static Library creation path) but there are several popular methods to make a static framework. ([This method](https://github.com/jverkoey/iOS-Framework) is pretty popular).*
 
 Should note that the definitions given above are really just a rough guide. 
 
@@ -34,7 +36,7 @@ When linked, Static libraries get combined with our target binary. (This results
 
 The following example demonstrates the difference mentioned above:
 - SLib is a static library 
-  - SFramework contains class AClass with method aMethod 
+  - SLib contains class AClass with method aMethod 
 - DFramework is a dynamic framework 
   - DFramework contains class BClass with method bMethod
 
@@ -60,4 +62,7 @@ file AFramework
 
 ### Adding a Framework to a project (iOS)
 
-The process of using a framework is pretty straight forward though occassionally one may encounter some hiccups. The most common process for using a framework is to add it under the "Frameworks and Libraries" section of the target. 
+The process of using a framework is pretty straight forward though occassionally one may encounter some hiccups. The most common process for using a framework is to add it under the "Linked Frameworks and Libraries" section of the target. 
+
+
+Or manually adding it to the Link Binary With Libraries Section of the Build Phases + Copy Files Phase + Updaing some build settings including Other Linker Flags, Framework Search Paths, Library Search Paths.
