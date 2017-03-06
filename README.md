@@ -65,7 +65,16 @@ file AFramework
 
 ### Adding a Framework to a project (iOS)
 
-The process of using a framework is pretty straight forward though occassionally one may encounter some hiccups. The most common process for using a framework is to add it under the "Linked Frameworks and Libraries" section of the target. 
-
+The process of using a framework is pretty straight forward though occassionally one may encounter some hiccups. The most common process for using a framework is to add it under the "Linked Frameworks and Libraries" and "Embedded Binaries" section of the target. 
 
 Or manually adding it to the Link Binary With Libraries Section of the Build Phases + Copy Files Phase + Updaing some build settings including Other Linker Flags, Framework Search Paths, Library Search Paths.
+
+### Pre-compiled Framewokrs / Binaries vs Frameworks in development
+
+If the application we are currently working on depends on a precompiled Framework (e.g. a Carthage dependency which Carthage has already built, or simply a framework we've manually built) then replacing the framework at its location with an updated/modified framework is all that is required. 
+This is reasonable for cases like Carthage where updates are handled through Carthage update, or for frameworks where updates are less frequent. (E.g if we had an analytics library we update once every couple months when they release a new build)
+
+However, if we are simultaneously working on our dependency and our application, we might not want the hassle of replacing the compiled framework over and over. There are several varying set-ups which we might find useful: (There are probably many more but these are the ones I know of) 
+> Target application and Framework are both targets of a common project
+> Framework project is a sub-project of application project (Potentially submodules)
+> Framework and Application are seperate projects and work is done in a xcworkspace
