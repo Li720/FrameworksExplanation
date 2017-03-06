@@ -35,14 +35,17 @@ Should note that the definitions given above are really just a rough guide.
 When linked, Static libraries get combined with our target binary. (This results in an increased binary size, since basically anything in the library would now be in our binary.) The opposite occurs when linking a Dynamic library; None of the dynamic library's code is actually combined into our target binary. Because the library code is not included in our target binary, it has to be loaded into memory at run time. 
 
 The following example demonstrates the difference mentioned above:
-- SLib is a static library 
-  - SLib contains class AClass with method aMethod 
-- DFramework is a dynamic framework 
-  - DFramework contains class BClass with method bMethod
+- StLib is a static library 
+  - StLib contains class StLib with method sMethod 
+- DyFramework is a dynamic framework 
+  - DyFramework contains class DClass with method dMethod
 
 After compiling the target binary foo, we will use [class-dump](http://stevenygard.com/projects/class-dump/) on each of the relevant products. 
 
-Notice how our target binary contains AClass and aMethod but not BClass or bMethod.  
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/CDumpDemo.gif?raw=true height="600">
+
+Notice how our target binary contains StLib and sMethod but not DClass or dMethod.  
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/StLibVsDClass.gif?raw=true height="600">
 
 Because of the way dynamic frameworks work, dynamic frameworks need to be copied/embedded into the Frameworks portion of an iOS app. Linking to a dynamic framework but not copying it may result in an error that looks somewhat like so: 
 > dyld: Library not loaded: <Library>  
