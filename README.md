@@ -93,6 +93,7 @@ The current example of frameworks101.xcworkspace illustrates the above scenario 
 In scenario 3 we could also not have find implicit dependencies on and rather just add the framework target to our build scheme. This would also ensure that the framework is built. (Note that the order matters) 
 <img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/EditingScheme.png?raw=true height="200">
 
-We should note that in Scenario 3, development is now dependent on the xcworkspace; Trying to build the application from the project file alone would most likely result in an error. (The xcworkspace carries knowledge of the exsistence of the framework project) 
+We should note that in Scenario 3, development is now dependent on the xcworkspace; Trying to build the application from the project file alone would most likely result in an error. (The xcworkspace carries knowledge of the exsistence of the framework project)
+
 <img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/BrokenScheme.png?raw=true height="200">
 <img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ProjectError.png?raw=true height="200">
