@@ -6,7 +6,7 @@ This repository is simply a collection of knowledge I have gathered around Frame
 ## What is a Framework?
 
 So taken from the [Apple Framework Developer Guide](https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html#//apple_ref/doc/uid/20002303-BBCEIJFI) 
-> A framework is a hierarchical directory that encapsulates shared resources, such as a dynamic shared library, nib files, image files, localized strings, header files, and reference documentation in a single package. 
+> A framework is a hierarchical directory that encapsulates shared resources, such as a dynamic shared library, nib files, image files, localized strings, header files, and reference documentation in a single package.
 
 In the most common scenario (AFAIK), a framework is a package containing symbolic links to a library, the headers, and any potential required resources (e.g. assets). Taking a dive into a framework might look like so: 
 ```
@@ -75,6 +75,24 @@ If the application we are currently working on depends on a precompiled Framewor
 This is reasonable for cases like Carthage where updates are handled through Carthage update, or for frameworks where updates are less frequent. (E.g if we had an analytics library we update once every couple months when they release a new build)
 
 However, if we are simultaneously working on our dependency and our application, we might not want the hassle of replacing the compiled framework over and over. There are several varying set-ups which we might find useful: (There are probably many more but these are the ones I know of) 
-- Target application and Framework are both targets of a common project
-- Framework project is a sub-project of application project (Potentially submodules)
-- Framework and Application are seperate projects and work is done in a xcworkspace
+1. Target application and Framework are both targets of a common project
+2. Framework project is a sub-project of application project (Potentially submodules)
+3. Framework and Application are seperate projects and work is done in a xcworkspace
+
+## Build Settings
+
+If the framework we are in scenario 1 or 2 above, we can add our framework target as a target dependency of the application target. This will ensure that the framework is built when building the application. 
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/TargetDepend.png?raw=true height="200">
+
+However if we find ourselves in scenario 3, we note that adding the framework to the target dependencies phase isn't actually possible. Rather we will take advantage of xcworkspace magic. If in our active scheme, we have the "Find implicit dependencies" checked of, and we have both the framework project, and the application project in the same workspace, xcode should compile the framework automatically. 
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/FindImplicitCheckBox.png?raw=true height="200">
+
+The current example of frameworks101.xcworkspace illustrates the above scenario quite well. 
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ImplicitFind.png?raw=true height="200">
+
+In scenario 3 we could also not have find implicit dependencies on and rather just add the framework target to our build scheme. This would also ensure that the framework is built. (Note that the order matters) 
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/EditingScheme.png?raw=true height="200">
+
+We should note that in Scenario 3, development is now dependent on the xcworkspace; Trying to build the application from the project file alone would most likely result in an error. (The xcworkspace carries knowledge of the exsistence of the framework project) 
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/BrokenScheme.png?raw=true height="200">
+<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ProjectError.png?raw=true height="200">
