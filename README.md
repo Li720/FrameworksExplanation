@@ -41,10 +41,10 @@ The following example demonstrates the difference mentioned above:
   - DyFramework contains class DClass with method dMethod
 
 After compiling the target binary foo, we will use [class-dump](http://stevenygard.com/projects/class-dump/) on each of the relevant products. 
-![CDump-Demo](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/CDumpDemo.gif)
+![CDump-Demo](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/CDumpDemo-Speedx2.gif)
 
 Notice how our target binary contains StLib and sMethod but not DClass or dMethod.  
-![CDump-Demo](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/StLibVsDClass.gif)
+![CDump-Demo](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/StLibVsDClass-speedx2.gif)
 
 Because of the way dynamic frameworks work, dynamic frameworks need to be copied/embedded into the Frameworks portion of an iOS app. Linking to a dynamic framework but not copying it may result in an error that looks somewhat like so: 
 > dyld: Library not loaded: <Library>  
@@ -81,18 +81,17 @@ However, if we are simultaneously working on our dependency and our application,
 ## Build Settings
 
 If the framework we are in scenario 1 or 2 above, we can add our framework target as a target dependency of the application target. This will ensure that the framework is built when building the application. 
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/TargetDepend.png?raw=true height="200">
+![Target Dependency](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/TargetDepend.png)
 
 However if we find ourselves in scenario 3, we note that adding the framework to the target dependencies phase isn't actually possible. Rather we will take advantage of xcworkspace magic. If in our active scheme, we have the "Find implicit dependencies" checked of, and we have both the framework project, and the application project in the same workspace, xcode should compile the framework automatically. 
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/FindImplicitCheckBox.png?raw=true height="200">
+![FindImplicitCheckBox](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/FindImplicitCheckBox.png)
 
 The current example of frameworks101.xcworkspace illustrates the above scenario quite well. 
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ImplicitFind.png?raw=true height="200">
+![ImplicitFind](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ImplicitFind.png)
 
 In scenario 3 we could also not have find implicit dependencies on and rather just add the framework target to our build scheme. This would also ensure that the framework is built. (Note that the order matters) 
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/EditingScheme.png?raw=true height="200">
+![EditingScheme](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/EditingScheme.png)
 
 We should note that in Scenario 3, development is now dependent on the xcworkspace; Trying to build the application from the project file alone would most likely result in an error. (The xcworkspace carries knowledge of the exsistence of the framework project)
-
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/BrokenScheme.png?raw=true height="200">
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ProjectError.png?raw=true height="200">
+![BrokenScheme](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/BrokenScheme.png)
+![ProjectError](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/ProjectError.png)
