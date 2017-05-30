@@ -41,11 +41,10 @@ The following example demonstrates the difference mentioned above:
   - DyFramework contains class DClass with method dMethod
 
 After compiling the target binary foo, we will use [class-dump](http://stevenygard.com/projects/class-dump/) on each of the relevant products. 
-
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/CDumpDemo.gif?raw=true height="600">
+![CDump-Demo](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/CDumpDemo.gif)
 
 Notice how our target binary contains StLib and sMethod but not DClass or dMethod.  
-<img src=https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/StLibVsDClass.gif?raw=true height="600">
+![CDump-Demo](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/StLibVsDClass.gif)
 
 Because of the way dynamic frameworks work, dynamic frameworks need to be copied/embedded into the Frameworks portion of an iOS app. Linking to a dynamic framework but not copying it may result in an error that looks somewhat like so: 
 > dyld: Library not loaded: <Library>  
