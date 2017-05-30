@@ -70,23 +70,27 @@ Or manually adding it to the Link Binary With Libraries Section of the Build Pha
 
 ### Updating Pre-compiled Frameworks / Binaries vs Frameworks in development
 
-** Pre-compiled Frameworks **
+**Pre-compiled Frameworks**
+
 If the application you are working on depends on a precompiled Framework (e.g. a Carthage dependency which Carthage has already built, or simply a framework we've manually built) then replacing the framework at its location with an updated/modified framework is all that is required. 
 This is reasonable for cases like Carthage where updates are handled through Carthage update, or for frameworks where updates are less frequent. (E.g if we had an analytics library we update once every couple months when they release a new build)
 
-** Frameworks in concurrent development **
+**Frameworks in concurrent development**
+
 However, if we are simultaneously working on our dependency and our application, we might not want the hassle of replacing the compiled framework over and over. There are several varying set-ups which we might find useful: (There are probably many more but these are the ones I know of) 
 1. Target application and Framework are both targets of a common project
 2. Framework project is a sub-project of application project (Potentially submodules)
 3. Framework and Application are seperate projects and work is done in a xcworkspace
 
-** Build Settings For Frameworks in concurrent development **
+**Build Settings For Frameworks in concurrent development**
 
 **Scenario 1 & 2**
+
 If the situation we are in is scenario 1 or 2 above, we can add our framework target as a target dependency of the application target. This will ensure that the framework is built when building the application. 
 ![Target Dependency](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/TargetDepend.png)
 
 **Scenario 3**
+
 However if we find ourselves in scenario 3, we note that adding the framework to the target dependencies phase isn't actually possible. Rather we will take advantage of xcworkspace magic. If in our active scheme, we have the "Find implicit dependencies" checked of, and we have both the framework project, and the application project in the same workspace, xcode should compile the framework automatically. 
 ![FindImplicitCheckBox](https://github.com/Li720/FrameworksExplanation/blob/writeup/WriteUp/Images/FindImplicitCheckBox.png)
 
